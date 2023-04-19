@@ -1,41 +1,38 @@
 # https://leetcode.com/problems/reorganize-string/
 
+from collections import Counter
+from queue import PriorityQueue
+
 
 def reorganizeString(s: str):
-    from collections import Counter
-    import numpy as np
 
-    counts = Counter(s)
-    max_exec = max(counts.values())
-    max_count = sum(1 for i in counts.values() if i == max_exec)
-
-    if (max_exec - 1) * 2 + max_count > len(s):
+    count = Counter(s)
+    max_count = max(count.values())
+    if max_count > (len(s) + 1) // 2:
         return ""
 
-    else:
-        letters = [
-            list(each) for each in sorted(
-                counts.items(), key=lambda x: x[1], reverse=True)
-        ]
+    que = PriorityQueue()
 
-        ans = []
-        for i in range(max_count):
-            ans.append([letters[i][0]] * max_exec)
+    for k, v in count.items():
+        que.put([-v, k])
 
-        temp = []
-        for i in range(max_count, len(letters)):
-            temp += [letters[i][0]] * letters[i][1]
+    output = []
+    while que.qsize() > 1:
+        neg_num, char = que.get()
+        neg_num2, char2 = que.get()
 
-        for j in range(0, len(temp), max_exec - 1):
-            ans.append(temp[j:j + max_exec - 1])
-            ans[-1] += [""] * (max_exec - len(ans[-1]))
+        output += [char, char2]
 
-        ans = np.array(ans).T
-        answer = ""
-        for row in ans:
-            for col in row:
-                answer += col
-        return answer
+        if neg_num < -1:
+            que.put([neg_num + 1, char])
+        if neg_num2 < -1:
+            que.put([neg_num2 + 1, char2])
+
+    if not que.empty():
+        _, char = que.get()
+        output.append(char)
+
+    return "".join(output)
 
 
 if __name__ == "__main__":

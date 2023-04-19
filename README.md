@@ -24,3 +24,10 @@
     - Do something in current level recursion
     - Return result
     - Add start before head in avoid of edge case
+
+### [Stack](https://turingplanet.org/2020/06/21/stack%e5%a0%86%e6%a0%88%e8%a7%a3%e9%a2%98%e5%a5%97%e8%b7%af%e3%80%90leetcode%e5%88%b7%e9%a2%98%e5%a5%97%e8%b7%af%e6%95%99%e7%a8%8b5%e3%80%91/)
+- Keep elements in the Stack monotonic in/decreasing
+
+### [Heap](https://turingplanet.org/2020/07/04/leetcode6heap/)
+![Heap](./notes%20pic/Heap.png)
+![Heap vs Sort](./notes%20pic/Heap%20vs%20Sort.png)
